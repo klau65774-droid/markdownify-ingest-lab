@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=61.2", "setuptools_scm[toml]>=3.4.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "markdownify"
+version = "1.2.4"
+authors = [{name = "Matthew Tretter", email = "m@tthewwithanm.com"}]
+description = "Convert HTML to markdown."
+readme = "README.rst"
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "beautifulsoup4>=4.9,<5",
+]
+
+[project.optional-dependencies]
+workbench = [
+    "fastapi>=0.115,<1",
+    "pydantic>=2.7,<3",
+    "uvicorn>=0.30,<1",
+]
+
+[project.urls]
+Homepage = "http://github.com/matthewwithanm/python-markdownify"
+Download = "http://github.com/matthewwithanm/python-markdownify/tarball/master"
+
+[project.scripts]
+markdownify = "markdownify.main:main"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["markdownify", "markdownify.*"]
+namespaces = false
+
+[tool.setuptools_scm]
+
+[tool.ruff.lint]
+extend-select = ["B", "C4", "I", "RUF", "SIM", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Snapshot and original upstream tests are kept byte-for-byte.
+"markdownify/_upstream_v124.py" = ["C402", "C419", "I001", "RUF012", "SIM102", "SIM103", "SIM201", "UP004", "UP031"]
+"markdownify/__init__.py" = ["C402", "C419", "RUF012", "SIM102", "SIM103", "SIM201", "UP031"]
+"markdownify/__init__.pyi" = ["I001", "UP007", "UP035"]
+"markdownify/main.py" = ["I001"]
+"markdownify/structural.py" = ["UP006", "UP035", "UP045"]
+"tests/test_args.py" = ["I001"]
+"tests/test_basic.py" = ["I001"]
+"tests/test_conversions.py" = ["I001"]
+"tests/test_custom_converter.py" = ["I001", "UP031"]
+"tests/test_escaping.py" = ["I001", "UP025"]
+"tests/test_lists.py" = ["I001"]
+"tests/test_tables.py" = ["I001"]
+"tests/types.py" = ["B015", "I001", "UP007"]
+
+[[tool.mypy.overrides]]
+module = "markdownify._upstream_v124"
+disable_error_code = ["var-annotated"]

@@ -1,0 +1,1498 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Markdownify Ingestion Workbench",
+    "version": "1.2.4"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/presets": {
+      "get": {
+        "summary": "Presets",
+        "operationId": "presets_api_presets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Preset"
+                  },
+                  "type": "array",
+                  "title": "Response Presets Api Presets Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ingest": {
+      "post": {
+        "summary": "Ingest",
+        "operationId": "ingest_api_ingest_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngestResultModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid UTF-8 request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidUTF8Response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Input or conversion exceeds a resource budget",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/inspect/threats": {
+      "post": {
+        "summary": "Inspect Threats",
+        "operationId": "inspect_threats_api_inspect_threats_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThreatInspectRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThreatInspectResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid UTF-8 request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidUTF8Response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Input or conversion exceeds a resource budget",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tables/normalize": {
+      "post": {
+        "summary": "Normalize Tables",
+        "operationId": "normalize_tables_api_tables_normalize_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TableNormalizeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableNormalizeResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid UTF-8 request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidUTF8Response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Input or conversion exceeds a resource budget",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/benchmarks/run": {
+      "post": {
+        "summary": "Benchmarks",
+        "operationId": "benchmarks_api_benchmarks_run_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BenchmarkResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid UTF-8 request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidUTF8Response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Input or conversion exceeds a resource budget",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/dos/audit": {
+      "post": {
+        "summary": "Dos Audit",
+        "operationId": "dos_audit_api_dos_audit_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid UTF-8 request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidUTF8Response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Input or conversion exceeds a resource budget",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/batch/preview": {
+      "post": {
+        "summary": "Batch Preview",
+        "operationId": "batch_preview_api_batch_preview_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchPreviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchPreviewResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid UTF-8 request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidUTF8Response"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Input or conversion exceeds a resource budget",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditCheck": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "deep_dom_nesting",
+              "oversized_html_bytes",
+              "quadratic_ordered_list",
+              "credential_redaction"
+            ],
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "FAIL"
+            ],
+            "title": "Status"
+          },
+          "elapsed_us": {
+            "type": "integer",
+            "title": "Elapsed Us"
+          },
+          "details": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "status",
+          "elapsed_us",
+          "details"
+        ],
+        "title": "AuditCheck"
+      },
+      "AuditResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "FAIL"
+            ],
+            "title": "Status"
+          },
+          "checks": {
+            "items": {
+              "$ref": "#/components/schemas/AuditCheck"
+            },
+            "type": "array",
+            "title": "Checks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "checks"
+        ],
+        "title": "AuditResult"
+      },
+      "BaselineResult": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "commit": {
+            "type": "string",
+            "title": "Commit"
+          },
+          "markdown": {
+            "type": "string",
+            "title": "Markdown"
+          },
+          "token_count": {
+            "type": "integer",
+            "title": "Token Count"
+          },
+          "leaked_threat_count": {
+            "type": "integer",
+            "title": "Leaked Threat Count"
+          },
+          "leaked_threats": {
+            "items": {
+              "$ref": "#/components/schemas/ThreatFinding"
+            },
+            "type": "array",
+            "title": "Leaked Threats"
+          },
+          "table_alignment_valid": {
+            "type": "boolean",
+            "title": "Table Alignment Valid"
+          },
+          "elapsed_us": {
+            "type": "integer",
+            "title": "Elapsed Us"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "commit",
+          "markdown",
+          "token_count",
+          "leaked_threat_count",
+          "leaked_threats",
+          "table_alignment_valid",
+          "elapsed_us"
+        ],
+        "title": "BaselineResult"
+      },
+      "BatchDocInput": {
+        "properties": {
+          "html": {
+            "type": "string",
+            "title": "Html"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "html"
+        ],
+        "title": "BatchDocInput"
+      },
+      "BatchDocSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "token_count": {
+            "type": "integer",
+            "title": "Token Count"
+          },
+          "upstream_token_count": {
+            "type": "integer",
+            "title": "Upstream Token Count"
+          },
+          "token_reduction_rate": {
+            "type": "number",
+            "title": "Token Reduction Rate"
+          },
+          "threats_detected": {
+            "type": "integer",
+            "title": "Threats Detected"
+          },
+          "threats_cleaned": {
+            "type": "integer",
+            "title": "Threats Cleaned"
+          },
+          "threats_blocked": {
+            "type": "integer",
+            "title": "Threats Blocked"
+          },
+          "table_alignment_valid": {
+            "type": "boolean",
+            "title": "Table Alignment Valid"
+          },
+          "markdown_preview": {
+            "type": "string",
+            "title": "Markdown Preview"
+          },
+          "elapsed_us": {
+            "type": "integer",
+            "title": "Elapsed Us"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "token_count",
+          "upstream_token_count",
+          "token_reduction_rate",
+          "threats_detected",
+          "threats_cleaned",
+          "threats_blocked",
+          "table_alignment_valid",
+          "markdown_preview",
+          "elapsed_us"
+        ],
+        "title": "BatchDocSummary"
+      },
+      "BatchPreviewRequest": {
+        "properties": {
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/BatchDocInput"
+            },
+            "type": "array",
+            "maxItems": 16,
+            "title": "Documents"
+          },
+          "policy": {
+            "type": "string",
+            "enum": [
+              "raw_upstream",
+              "clean_rag",
+              "strict_guard"
+            ],
+            "title": "Policy",
+            "default": "strict_guard"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "documents"
+        ],
+        "title": "BatchPreviewRequest"
+      },
+      "BatchPreviewResult": {
+        "properties": {
+          "document_count": {
+            "type": "integer",
+            "title": "Document Count"
+          },
+          "token_count": {
+            "type": "integer",
+            "title": "Token Count"
+          },
+          "upstream_token_count": {
+            "type": "integer",
+            "title": "Upstream Token Count"
+          },
+          "token_reduction_rate": {
+            "type": "number",
+            "title": "Token Reduction Rate"
+          },
+          "threats_detected": {
+            "type": "integer",
+            "title": "Threats Detected"
+          },
+          "threats_cleaned": {
+            "type": "integer",
+            "title": "Threats Cleaned"
+          },
+          "threats_blocked": {
+            "type": "integer",
+            "title": "Threats Blocked"
+          },
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/BatchDocSummary"
+            },
+            "type": "array",
+            "title": "Documents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_count",
+          "token_count",
+          "upstream_token_count",
+          "token_reduction_rate",
+          "threats_detected",
+          "threats_cleaned",
+          "threats_blocked",
+          "documents"
+        ],
+        "title": "BatchPreviewResult"
+      },
+      "BenchmarkMetrics": {
+        "properties": {
+          "case_count": {
+            "type": "integer",
+            "title": "Case Count"
+          },
+          "injection_count": {
+            "type": "integer",
+            "title": "Injection Count"
+          },
+          "table_case_count": {
+            "type": "integer",
+            "title": "Table Case Count"
+          },
+          "injection_block_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Injection Block Rate"
+          },
+          "content_f1": {
+            "type": "number",
+            "title": "Content F1"
+          },
+          "token_reduction_rate": {
+            "type": "number",
+            "title": "Token Reduction Rate"
+          },
+          "table_alignment_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Table Alignment Rate"
+          },
+          "p95_us": {
+            "type": "integer",
+            "title": "P95 Us"
+          },
+          "p99_us": {
+            "type": "integer",
+            "title": "P99 Us"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_count",
+          "injection_count",
+          "table_case_count",
+          "injection_block_rate",
+          "content_f1",
+          "token_reduction_rate",
+          "table_alignment_rate",
+          "p95_us",
+          "p99_us"
+        ],
+        "title": "BenchmarkMetrics"
+      },
+      "BenchmarkResult": {
+        "properties": {
+          "case_count": {
+            "type": "integer",
+            "title": "Case Count"
+          },
+          "modes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/BenchmarkMetrics"
+            },
+            "propertyNames": {
+              "enum": [
+                "raw_upstream",
+                "clean_rag",
+                "strict_guard"
+              ]
+            },
+            "type": "object",
+            "title": "Modes"
+          },
+          "by_category": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/BenchmarkMetrics"
+              },
+              "propertyNames": {
+                "enum": [
+                  "raw_upstream",
+                  "clean_rag",
+                  "strict_guard"
+                ]
+              },
+              "type": "object"
+            },
+            "propertyNames": {
+              "enum": [
+                "hidden_css_injection",
+                "zero_width_smuggling",
+                "comment_and_attr_injection",
+                "boilerplate_nav_bloat",
+                "complex_span_tables",
+                "code_language_fences",
+                "tracking_and_malicious_urls",
+                "clean_article_preservation"
+              ]
+            },
+            "type": "object",
+            "title": "By Category"
+          },
+          "sample_results": {
+            "items": {
+              "$ref": "#/components/schemas/BenchmarkSample"
+            },
+            "type": "array",
+            "title": "Sample Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_count",
+          "modes",
+          "by_category",
+          "sample_results"
+        ],
+        "title": "BenchmarkResult"
+      },
+      "BenchmarkSample": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "hidden_css_injection",
+              "zero_width_smuggling",
+              "comment_and_attr_injection",
+              "boilerplate_nav_bloat",
+              "complex_span_tables",
+              "code_language_fences",
+              "tracking_and_malicious_urls",
+              "clean_article_preservation"
+            ],
+            "title": "Category"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "raw_upstream",
+              "clean_rag",
+              "strict_guard"
+            ],
+            "title": "Mode"
+          },
+          "injection_blocked": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Injection Blocked"
+          },
+          "content_f1": {
+            "type": "number",
+            "title": "Content F1"
+          },
+          "token_count": {
+            "type": "integer",
+            "title": "Token Count"
+          },
+          "table_alignment_valid": {
+            "type": "boolean",
+            "title": "Table Alignment Valid"
+          },
+          "code_language_correct": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code Language Correct"
+          },
+          "elapsed_us": {
+            "type": "integer",
+            "title": "Elapsed Us"
+          },
+          "markdown_preview": {
+            "type": "string",
+            "title": "Markdown Preview"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id",
+          "category",
+          "mode",
+          "injection_blocked",
+          "content_f1",
+          "token_count",
+          "table_alignment_valid",
+          "code_language_correct",
+          "elapsed_us",
+          "markdown_preview"
+        ],
+        "title": "BenchmarkSample"
+      },
+      "BudgetErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "max_bytes",
+              "max_depth",
+              "max_nodes"
+            ],
+            "title": "Code"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "observed": {
+            "type": "integer",
+            "title": "Observed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "limit",
+          "observed"
+        ],
+        "title": "BudgetErrorDetail"
+      },
+      "BudgetErrorResponse": {
+        "properties": {
+          "detail": {
+            "$ref": "#/components/schemas/BudgetErrorDetail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "BudgetErrorResponse"
+      },
+      "HealthResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status",
+            "default": "ok"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "uptime_ms": {
+            "type": "integer",
+            "title": "Uptime Ms"
+          },
+          "preset_count": {
+            "type": "integer",
+            "title": "Preset Count"
+          },
+          "engine_capabilities": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Engine Capabilities"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "uptime_ms",
+          "preset_count",
+          "engine_capabilities"
+        ],
+        "title": "HealthResult"
+      },
+      "IngestRequest": {
+        "properties": {
+          "html": {
+            "type": "string",
+            "title": "Html"
+          },
+          "policy": {
+            "type": "string",
+            "enum": [
+              "raw_upstream",
+              "clean_rag",
+              "strict_guard"
+            ],
+            "title": "Policy",
+            "default": "strict_guard"
+          },
+          "strip_hidden": {
+            "type": "boolean",
+            "title": "Strip Hidden",
+            "default": true
+          },
+          "prune_boilerplate": {
+            "type": "boolean",
+            "title": "Prune Boilerplate",
+            "default": true
+          },
+          "normalize_tables": {
+            "type": "boolean",
+            "title": "Normalize Tables",
+            "default": true
+          },
+          "clean_urls": {
+            "type": "boolean",
+            "title": "Clean Urls",
+            "default": true
+          },
+          "redact_secrets": {
+            "type": "boolean",
+            "title": "Redact Secrets",
+            "default": true
+          },
+          "infer_code_language": {
+            "type": "boolean",
+            "title": "Infer Code Language",
+            "default": true
+          },
+          "heading_style": {
+            "type": "string",
+            "enum": [
+              "atx",
+              "atx_closed",
+              "underlined"
+            ],
+            "title": "Heading Style",
+            "default": "atx"
+          },
+          "compare_baseline": {
+            "type": "boolean",
+            "title": "Compare Baseline",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "html"
+        ],
+        "title": "IngestRequest"
+      },
+      "IngestResultModel": {
+        "properties": {
+          "policy": {
+            "type": "string",
+            "enum": [
+              "raw_upstream",
+              "clean_rag",
+              "strict_guard"
+            ],
+            "title": "Policy"
+          },
+          "markdown": {
+            "type": "string",
+            "title": "Markdown"
+          },
+          "input_bytes": {
+            "type": "integer",
+            "title": "Input Bytes"
+          },
+          "token_count": {
+            "type": "integer",
+            "title": "Token Count"
+          },
+          "token_reduction_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Token Reduction Rate"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/components/schemas/Operation"
+            },
+            "type": "array",
+            "title": "Operations"
+          },
+          "threats": {
+            "items": {
+              "$ref": "#/components/schemas/ThreatFinding"
+            },
+            "type": "array",
+            "title": "Threats"
+          },
+          "threats_cleaned": {
+            "type": "integer",
+            "title": "Threats Cleaned"
+          },
+          "threats_blocked": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Threats Blocked"
+          },
+          "table_alignment_valid": {
+            "type": "boolean",
+            "title": "Table Alignment Valid"
+          },
+          "cells_expanded": {
+            "type": "integer",
+            "title": "Cells Expanded"
+          },
+          "secrets_redacted": {
+            "type": "integer",
+            "title": "Secrets Redacted"
+          },
+          "confidence_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence Score"
+          },
+          "elapsed_us": {
+            "type": "integer",
+            "title": "Elapsed Us"
+          },
+          "baseline": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BaselineResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "policy",
+          "markdown",
+          "input_bytes",
+          "token_count",
+          "token_reduction_rate",
+          "operations",
+          "threats",
+          "threats_cleaned",
+          "threats_blocked",
+          "table_alignment_valid",
+          "cells_expanded",
+          "secrets_redacted",
+          "confidence_score",
+          "elapsed_us",
+          "baseline"
+        ],
+        "title": "IngestResultModel"
+      },
+      "InvalidUTF8Detail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "invalid_utf8",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "title": "InvalidUTF8Detail"
+      },
+      "InvalidUTF8Response": {
+        "properties": {
+          "detail": {
+            "$ref": "#/components/schemas/InvalidUTF8Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "InvalidUTF8Response"
+      },
+      "Operation": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "STRIP_DANGEROUS_URI",
+              "STRIP_TRACKING_PIXEL",
+              "CLEAN_TRACKING_URL",
+              "STRIP_HIDDEN_STYLE",
+              "STRIP_HIDDEN_ATTR",
+              "STRIP_ZERO_WIDTH",
+              "STRIP_SUSPICIOUS_ATTRIBUTE",
+              "STRIP_INSTRUCTION",
+              "PRUNE_BOILERPLATE",
+              "REDACT_SECRET",
+              "NORMALIZE_TABLE"
+            ],
+            "title": "Kind"
+          },
+          "dom_path": {
+            "type": "string",
+            "title": "Dom Path"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count",
+            "default": 1
+          },
+          "tokens_saved": {
+            "type": "integer",
+            "title": "Tokens Saved",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "dom_path",
+          "detail"
+        ],
+        "title": "Operation"
+      },
+      "Preset": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "html": {
+            "type": "string",
+            "title": "Html"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description",
+          "html"
+        ],
+        "title": "Preset"
+      },
+      "TableNormalizeRequest": {
+        "properties": {
+          "html": {
+            "type": "string",
+            "title": "Html"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "html"
+        ],
+        "title": "TableNormalizeRequest"
+      },
+      "TableNormalizeResult": {
+        "properties": {
+          "upstream_table_markdown": {
+            "type": "string",
+            "title": "Upstream Table Markdown"
+          },
+          "upstream_column_counts": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Upstream Column Counts"
+          },
+          "upstream_aligned": {
+            "type": "boolean",
+            "title": "Upstream Aligned"
+          },
+          "normalized_table_markdown": {
+            "type": "string",
+            "title": "Normalized Table Markdown"
+          },
+          "normalized_column_counts": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Normalized Column Counts"
+          },
+          "normalized_aligned": {
+            "type": "boolean",
+            "title": "Normalized Aligned"
+          },
+          "cells_expanded": {
+            "type": "integer",
+            "title": "Cells Expanded"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upstream_table_markdown",
+          "upstream_column_counts",
+          "upstream_aligned",
+          "normalized_table_markdown",
+          "normalized_column_counts",
+          "normalized_aligned",
+          "cells_expanded"
+        ],
+        "title": "TableNormalizeResult"
+      },
+      "ThreatFinding": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "hidden_dom",
+              "zero_width",
+              "comment_injection",
+              "attribute_injection",
+              "instruction_override",
+              "exfiltration_uri"
+            ],
+            "title": "Category"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Severity"
+          },
+          "dom_path": {
+            "type": "string",
+            "title": "Dom Path"
+          },
+          "snippet": {
+            "type": "string",
+            "title": "Snippet"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "stripped",
+              "sanitized",
+              "flagged"
+            ],
+            "title": "Action"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "severity",
+          "dom_path",
+          "snippet",
+          "action"
+        ],
+        "title": "ThreatFinding"
+      },
+      "ThreatInspectRequest": {
+        "properties": {
+          "html": {
+            "type": "string",
+            "title": "Html"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "html"
+        ],
+        "title": "ThreatInspectRequest"
+      },
+      "ThreatInspectResult": {
+        "properties": {
+          "threats": {
+            "items": {
+              "$ref": "#/components/schemas/ThreatFinding"
+            },
+            "type": "array",
+            "title": "Threats"
+          },
+          "leaked_in_upstream_count": {
+            "type": "integer",
+            "title": "Leaked In Upstream Count"
+          },
+          "cleaned_in_enhanced_count": {
+            "type": "integer",
+            "title": "Cleaned In Enhanced Count"
+          },
+          "blocked_in_enhanced_count": {
+            "type": "integer",
+            "title": "Blocked In Enhanced Count"
+          },
+          "risk_level": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "safe"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "critical"
+                ]
+              }
+            ],
+            "title": "Risk Level"
+          },
+          "upstream_markdown_preview": {
+            "type": "string",
+            "title": "Upstream Markdown Preview"
+          },
+          "enhanced_markdown_preview": {
+            "type": "string",
+            "title": "Enhanced Markdown Preview"
+          },
+          "elapsed_us": {
+            "type": "integer",
+            "title": "Elapsed Us"
+          }
+        },
+        "type": "object",
+        "required": [
+          "threats",
+          "leaked_in_upstream_count",
+          "cleaned_in_enhanced_count",
+          "blocked_in_enhanced_count",
+          "risk_level",
+          "upstream_markdown_preview",
+          "enhanced_markdown_preview",
+          "elapsed_us"
+        ],
+        "title": "ThreatInspectResult"
+      },
+      "ValidationErrorResponse": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationIssue"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "ValidationErrorResponse"
+      },
+      "ValidationIssue": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Loc"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Msg"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "loc",
+          "msg"
+        ],
+        "title": "ValidationIssue"
+      }
+    }
+  }
+}
